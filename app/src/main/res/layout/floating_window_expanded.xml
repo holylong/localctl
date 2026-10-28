@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/floating_window_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    android:padding="4dp"
+    android:orientation="horizontal">
+
+    <!-- 人脸识别预览区域 -->
+    <LinearLayout
+        android:id="@+id/face_preview_container"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:orientation="vertical"
+        android:background="#00000000"
+        android:padding="4dp"
+        android:layout_marginRight="4dp">
+
+        <!-- 人脸识别预览SurfaceView -->
+        <SurfaceView
+            android:id="@+id/face_preview_surface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <!-- 人脸识别状态信息 -->
+        <TextView
+            android:id="@+id/face_preview_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="人脸识别预览"
+            android:textColor="#FFFFFF"
+            android:textSize="8sp"
+            android:gravity="center"
+            android:background="#80000000"
+            android:padding="2dp" />
+    </LinearLayout>
+
+    <!-- 左侧：会议查询结果区域 -->
+    <LinearLayout
+        android:id="@+id/meeting_result_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:visibility="visible"
+        android:elevation="8dp"
+        android:layout_marginRight="4dp">
+        
+
+        <!-- 正在进行的会议 -->
+        <LinearLayout
+            android:id="@+id/meeting_result_current_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#4CAF50"
+                android:padding="4dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="正在进行的会议"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/meeting_result_current_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:maxHeight="150dp">
+
+                <LinearLayout
+                    android:id="@+id/meeting_result_current_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="4dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 即将开始的会议 -->
+        <LinearLayout
+            android:id="@+id/meeting_result_upcoming_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FF9800"
+                android:padding="4dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="即将开始的会议"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/meeting_result_upcoming_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:maxHeight="150dp">
+
+                <LinearLayout
+                    android:id="@+id/meeting_result_upcoming_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="4dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 已过时的会议 -->
+        <LinearLayout
+            android:id="@+id/meeting_result_past_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#9E9E9E"
+                android:padding="4dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="已过时的会议"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/meeting_result_past_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:maxHeight="150dp">
+
+                <LinearLayout
+                    android:id="@+id/meeting_result_past_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="4dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 会议报告总结 -->
+        <LinearLayout
+            android:id="@+id/meeting_report_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#2196F3"
+                android:padding="4dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="会议报告总结"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/meeting_report_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:maxHeight="200dp">
+
+                <LinearLayout
+                    android:id="@+id/meeting_report_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- 推荐信息 -->
+        <LinearLayout
+            android:id="@+id/meeting_result_recommendation_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="6dp"
+            android:background="#9C27B0"
+            android:padding="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💡 建议"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/meeting_result_recommendation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:layout_marginTop="4dp"
+                android:lineSpacingExtra="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 右侧：原有内容 -->
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 日历信息 -->
+        <TextView
+            android:id="@+id/calendar_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#2196F3"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="#10000000"
+            android:padding="4dp"
+            android:layout_marginTop="2dp"
+            android:text="2024年12月29日 星期一" />
+
+        <!-- 自定义日历视图 -->
+        <com.minrray.voicectl.core.view.CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#10000000"
+            android:layout_marginTop="2dp" />
+
+        <!-- 行程列表标题 -->
+        <TextView
+            android:id="@+id/schedule_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="今日日程安排"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:padding="2dp"
+            android:background="#10000000"
+            android:layout_marginTop="4dp" />
+
+        <!-- 滚动行程列表 -->
+        <com.minrray.voicectl.core.view.ScrollScheduleView
+            android:id="@+id/schedule_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#80000000"
+            android:layout_marginTop="2dp" />
+
+        <!-- 天气栏：动画和温度描述 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:background="#10000000"
+            android:padding="4dp">
+
+            <!-- 天气预报动画 -->
+            <ImageView
+                android:id="@+id/weather_animation"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter" />
+
+            <!-- 天气温度文字描述 -->
+            <TextView
+                android:id="@+id/weather_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 小秘书栏：独占一行，靠左对齐 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="left"
+            android:background="#10000000">
+
+            <!-- IP信息显示区域 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical">
+
+                <!-- 本地IP -->
+                <TextView
+                    android:id="@+id/local_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:background="#00000000"
+                    android:text="本地IP: --"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp" />
+
+                <!-- 服务端IP -->
+                <TextView
+                    android:id="@+id/server_ip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:background="#00000000"
+                    android:text="服务端IP: --"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Q版女秘书小人容器 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="right|center_vertical">
+
+                <!-- Q版女秘书小人 -->
+                <ImageView
+                    android:id="@+id/assistant_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ollo" />
+
+                <!-- 状态提示区域 -->
+                <TextView
+                    android:id="@+id/status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textColor="#9575CD"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:text="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 滚动文字区域 -->
+        <TextView
+            android:id="@+id/speech_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#10000000"
+            android:padding="4dp"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:singleLine="false"
+            android:ellipsize="marquee"
+            android:scrollbars="vertical"
+            android:layout_marginTop="4dp" />
+
+        <!-- 波浪动画区域 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="4dp"
+            android:background="#10000000"
+            android:padding="2dp">
+
+            <!-- 波浪动画视图 -->
+            <com.minrray.voicectl.core.view.VoiceWaveView
+                android:id="@+id/voice_wave_view"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#10000000" />
+
+            <!-- 能量信息显示区域 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal">
+
+                <!-- 能量标签 -->
+                <TextView
+                    android:id="@+id/energy_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="音频能量: 0%"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="8sp" />
+
+                <!-- 状态指示器 -->
+                <TextView
+                    android:id="@+id/energy_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="状态: 安静"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="8sp" />
+            </LinearLayout>
+
+            <!-- 控制按钮 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/wave_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:background="#40000000"
+                    android:text="切换主题"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/wave_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:padding="2dp"
+                    android:background="#40000000"
+                    android:text="点击波浪切换"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 关闭按钮 -->
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="#FF0000" />
+    </LinearLayout>
+</LinearLayout>

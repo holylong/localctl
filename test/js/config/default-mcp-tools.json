@@ -1,0 +1,164 @@
+[
+    {
+        "name": "self.get_current_time",
+        "description": "获取设备当前的时间信息，包括时间戳和格式化日期时间",
+        "inputSchema": {
+            "type": "object",
+            "properties": {}
+        },
+        "mockResponse": {
+            "success": true,
+            "timestamp": 1734361200000,
+            "formatted_datetime": "2025-01-16 10:20:00",
+            "timezone": "Asia/Shanghai"
+        }
+    },
+    {
+        "name": "self.call_person",
+        "description": "用于呼叫指定联系人进行视频通话",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "person_name": {
+                    "type": "string",
+                    "description": "要呼叫的联系人姓名"
+                }
+            },
+            "required": [
+                "person_name"
+            ]
+        },
+        "mockResponse": {
+            "success": true,
+            "message": "电话已呼叫，等待${person_name}接听"
+        }
+    },
+    {
+        "name": "self.get_device_status",
+        "description": "Provides the real-time information of the device, including the current status of the audio speaker, screen, battery, network, etc.\nUse this tool for: \n1. Answering questions about current condition (e.g. what is the current volume of the audio speaker?)\n2. As the first step to control the device (e.g. turn up / down the volume of the audio speaker, etc.)",
+        "inputSchema": {
+            "type": "object",
+            "properties": {}
+        },
+        "mockResponse": {
+            "audio_speaker": {
+                "volume": 50,
+                "muted": false
+            },
+            "screen": {
+                "brightness": 80,
+                "theme": "light"
+            },
+            "battery": {
+                "level": 85,
+                "charging": false
+            },
+            "network": {
+                "connected": true,
+                "type": "wifi"
+            }
+        }
+    },
+    {
+        "name": "self.audio_speaker.set_volume",
+        "description": "Set the volume of the audio speaker. If the current volume is unknown, you must call `self.get_device_status` tool first and then call this tool.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "volume": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100
+                }
+            },
+            "required": [
+                "volume"
+            ]
+        },
+        "mockResponse": {
+            "success": true,
+            "volume": "${volume}",
+            "message": "音量已设置为 ${volume}"
+        }
+    },
+    {
+        "name": "self.screen.set_brightness",
+        "description": "Set the brightness of the screen.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "brightness": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100
+                }
+            },
+            "required": [
+                "brightness"
+            ]
+        },
+        "mockResponse": {
+            "success": true,
+            "brightness": "${brightness}",
+            "message": "亮度已设置为 ${brightness}"
+        }
+    },
+    {
+        "name": "self.interrupt_call",
+        "description": "用于打断当前正在进行的视频通话",
+        "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "mockResponse": {
+            "success": true,
+            "message": "已成功打断当前视频通话"
+        }
+    },
+    {
+        "name": "self.dial_call",
+        "description": "用于通过电话号码发起视频通话",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "phone_number": {
+                    "type": "string",
+                    "description": "要拨打的电话号码"
+                }
+            },
+            "required": [
+                "phone_number"
+            ]
+        },
+        "mockResponse": {
+            "success": true,
+            "message": "电话已呼叫，等待${phone_number}接听"
+        }
+    },
+    {
+        "name": "self.join_meeting",
+        "description": "用于加入视频会议，需要会议类型和会议号",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "meeting_type": {
+                    "type": "string",
+                    "description": "会议类型，如智云、腾讯会议等"
+                },
+                "meeting_number": {
+                    "type": "string",
+                    "description": "要加入的会议号码"
+                }
+            },
+            "required": [
+                "meeting_type",
+                "meeting_number"
+            ]
+        },
+        "mockResponse": {
+            "success": true,
+            "message": "已成功加入${meeting_type}会议 ${meeting_number}"
+        }
+    }
+]

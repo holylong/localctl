@@ -1,0 +1,51 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android build files
+*/build/
+*.apk
+*.ap_
+*.aab
+
+# Android Studio
+.idea/
+*.iml
+.DS_Store
+.externalNativeBuild
+.cxx/
+
+# Log files
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Sync conflict files
+*sync-conflict*
+voice-engine-sdk.7z 
+voice-engine-sdk.7z 
